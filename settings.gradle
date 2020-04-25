@@ -1,0 +1,10 @@
+include ':MVVMNavigator'
+include ':MVVMDataBinding'
+include ':MVVMRxRetrofit'
+include ':RoomRepository'
+include ':MVVMLogin'
+include ':AppNavigator'
+include ':Common'
+include ':MVVMLauncher'
+include ':MVVMRoom'
+rootProject.name = "MVVM_Kotlin"

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="position"
+            type="java.lang.Integer" />
+        <variable
+            name="viewmodel"
+            type="com.mvvm.databinding.viewmodel.DataBidingViewModel"/>
+
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/list_item"
+        android:layout_width="408dp"
+        android:layout_height="64dp"
+        android:text="@{viewmodel.fetchEmpList(position)}"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+   <ImageView
+       android:id="@+id/list_itemm"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:scaleType="fitXY"
+       app:imageUrl="@{viewmodel.fetchImageURL(position)}"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/list_item"
+       ></ImageView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
