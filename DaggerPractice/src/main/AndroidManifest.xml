@@ -3,8 +3,9 @@
     package="com.dagger.practice">
 
     <application>
-        <activity android:name=".MainActivity"></activity>
-
+        <activity android:name=".InterfaceInjectionActivity"></activity>
+        <activity android:name=".FieldInjectionActivity" />
+        <activity android:name=".ConstructorInjectionActivity" />
     </application>
 
 </manifest>
