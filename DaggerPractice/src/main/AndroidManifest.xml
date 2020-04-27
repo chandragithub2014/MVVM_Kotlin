@@ -3,7 +3,8 @@
     package="com.dagger.practice">
 
     <application>
-        <activity android:name=".DaggerPracticeActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
+
     </application>
 
 </manifest>

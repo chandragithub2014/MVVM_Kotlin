@@ -84,6 +84,7 @@ class LauncherFragment : Fragment(), LifecycleOwner,AdapterClickListener {
                 "MVVM DataBindingList" -> context?.openActivity(Class.forName("com.mvvm.databinding.view.DataBindingListActivity"))
                 "MVVM Navigation" -> context?.openActivity(Class.forName("com.mvvm.navigator.NavigationMainActivity"))
                 "MVVM Coroutines" -> context?.openActivity(Class.forName("com.rxretrofit.view.RetroRxCoroutineActivity"))
+                "DaggerSamples" -> context?.openActivity(Class.forName("com.dagger.practice.MainActivity"))
             }
         }catch (e:Exception){
             e.printStackTrace()

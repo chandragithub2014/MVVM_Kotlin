@@ -26,6 +26,7 @@ class LauncherViewModel : ViewModel(),LifecycleObserver{
         launcherList.add("MVVM DataBindingList")
         launcherList.add("MVVM Navigation")
         launcherList.add("MVVM Coroutines")
+        launcherList.add("DaggerSamples")
 
     }
 

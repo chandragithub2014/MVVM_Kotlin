@@ -1,3 +1,4 @@
+include ':DaggerPractice'
 include ':MVVMNavigator'
 include ':MVVMDataBinding'
 include ':MVVMRxRetrofit'
