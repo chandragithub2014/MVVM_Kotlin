@@ -29,6 +29,7 @@ class LauncherViewModel : ViewModel(),LifecycleObserver{
         launcherList.add("ConstructorInjection")
         launcherList.add("FieldInjection")
         launcherList.add("InterfaceInjection")
+        launcherList.add("NamedInjection")
 
     }
 
