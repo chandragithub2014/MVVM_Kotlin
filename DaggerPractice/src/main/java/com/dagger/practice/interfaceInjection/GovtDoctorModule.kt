@@ -4,13 +4,14 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class GovtDoctorModule constructor(age:Int) {
+class GovtDoctorModule constructor(age:Integer,year : Integer) {
 
-    var age:Int = age
+    var age:Integer = age
+    var year : Integer = year
 
      @Provides
      fun provideDoctorAge() : DoctorAge{
-         return DoctorAge(age)
+         return DoctorAge(age,year)
      }
      @Provides
      fun provideGovtDoctor() : DoctorType{
