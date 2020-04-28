@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dagger.practice">
 
-    <application>
-        <activity android:name=".NamedInjectionActivity"></activity>
+    <application android:name=".AppApplication">
+        <activity android:name=".AppLevelSingletonActivity"></activity>
+        <activity android:name=".SingletonInjectionActivity" />
+        <activity android:name=".NamedInjectionActivity" />
         <activity android:name=".InterfaceInjectionActivity" />
         <activity android:name=".FieldInjectionActivity" />
         <activity android:name=".ConstructorInjectionActivity" />

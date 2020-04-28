@@ -30,6 +30,10 @@ class LauncherViewModel : ViewModel(),LifecycleObserver{
         launcherList.add("FieldInjection")
         launcherList.add("InterfaceInjection")
         launcherList.add("NamedInjection")
+        launcherList.add("SingletonInjection")
+        launcherList.add("SubComponentInjection")
+
+
 
     }
 
