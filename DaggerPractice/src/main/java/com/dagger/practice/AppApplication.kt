@@ -4,8 +4,10 @@ import android.content.Context
 import com.dagger.practice.applevelsingletoInjection.AppComponent
 import com.dagger.practice.applevelsingletoInjection.ApplicationModule
 import com.dagger.practice.applevelsingletoInjection.DaggerAppComponent
-import javax.inject.Inject
-import javax.inject.Named
+import com.dagger.practice.subComponentInjection.DaggerSportsComponent
+import com.dagger.practice.subComponentInjection.SportsComponent
+import com.dagger.practice.subComponentInjection.SportsModule
+
 
 class AppApplication : Application()
  {
@@ -14,6 +16,7 @@ class AppApplication : Application()
     {
         var ctx: Context? = null
         lateinit var appComponent: AppComponent
+        lateinit var sportsComponent : SportsComponent
 
     }
 
@@ -22,6 +25,7 @@ class AppApplication : Application()
         super.onCreate()
         ctx = applicationContext
         appComponent = initDaggerComponent()
+        sportsComponent = initSportsComponent()
     }
 
     fun getMyComponent(): AppComponent
@@ -31,6 +35,10 @@ class AppApplication : Application()
 
     }
 
+   private fun initSportsComponent(): SportsComponent{
+       sportsComponent = DaggerSportsComponent.builder().sportsModule(SportsModule("Eden")).build()
+       return  sportsComponent
+   }
     private fun initDaggerComponent(): AppComponent
     {
         appComponent = DaggerAppComponent.builder().

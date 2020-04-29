@@ -3,7 +3,9 @@
     package="com.dagger.practice">
 
     <application android:name=".AppApplication">
-        <activity android:name=".AppLevelSingletonActivity"></activity>
+        <activity android:name=".TennisActivity"></activity>
+        <activity android:name=".CricketActivity" />
+        <activity android:name=".AppLevelSingletonActivity" />
         <activity android:name=".SingletonInjectionActivity" />
         <activity android:name=".NamedInjectionActivity" />
         <activity android:name=".InterfaceInjectionActivity" />
