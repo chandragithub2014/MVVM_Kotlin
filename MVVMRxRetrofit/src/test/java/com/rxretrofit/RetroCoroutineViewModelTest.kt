@@ -61,7 +61,7 @@ class RetroCoroutineViewModelTest {
 
 
 
-    @Test
+  /*  @Test
     fun fetchRetroInfoTest_success(){
 
         testCoroutineRule.runBlockingTest {
@@ -87,7 +87,7 @@ class RetroCoroutineViewModelTest {
           //  Assert.assertEquals(funResponse.value?.size,100)
 
         }
-    }
+    }*/
 val testDispatcher = TestCoroutineDispatcher()
     @Test /*(expected = TimeoutCancellationException::class)*/
     fun `check viewmodel fetches data correctly`() = testDispatcher.runBlockingTest{
