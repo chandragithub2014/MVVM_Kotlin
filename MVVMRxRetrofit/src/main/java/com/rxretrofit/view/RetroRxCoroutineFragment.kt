@@ -18,7 +18,9 @@ import com.mvvm.common.utils.initToolBar
 import com.rxretrofit.R
 import com.rxretrofit.model.RetroRxModel
 import com.rxretrofit.viewmodel.RetroCoroutineViewModel
+import com.rxretrofit.viewmodel.RetroCoroutineViewModelFactory
 import kotlinx.android.synthetic.main.fragment_retro_rx.view.*
+import androidx.lifecycle.ViewModelProviders
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +36,7 @@ class RetroRxCoroutineFragment : Fragment() , LifecycleOwner{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val viewModel:RetroCoroutineViewModel by viewModels()
+    lateinit var viewModel:RetroCoroutineViewModel
     lateinit var  retroCoroutineView: View
     private val adapter = RetrofitAdapter()
 
@@ -44,6 +46,7 @@ class RetroRxCoroutineFragment : Fragment() , LifecycleOwner{
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -57,6 +60,7 @@ class RetroRxCoroutineFragment : Fragment() , LifecycleOwner{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewModel()
         this.lifecycle.addObserver(viewModel)
         val toolbar = view.findViewById<Toolbar>(R.id.toolBar)
         val title = toolbar.findViewById<TextView>(R.id.toolbar_title)
@@ -67,6 +71,11 @@ class RetroRxCoroutineFragment : Fragment() , LifecycleOwner{
         }
         view.retroList.adapter = adapter
         observeViewModel()
+    }
+
+    fun initViewModel() {
+        var retroViewModelFactory = RetroCoroutineViewModelFactory()
+        viewModel = ViewModelProviders.of(this, retroViewModelFactory).get(RetroCoroutineViewModel::class.java)
     }
 
     private fun observeViewModel(){
@@ -86,7 +95,7 @@ class RetroRxCoroutineFragment : Fragment() , LifecycleOwner{
             }
         })
 
-        viewModel.fetchAPIResponse().observe(viewLifecycleOwner,
+        viewModel.fetchPostLiveData().observe(viewLifecycleOwner,
             Observer<List<RetroRxModel>> {
                     t -> println("API Response:::$t")
                 adapter.setList(t)

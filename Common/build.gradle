@@ -71,4 +71,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit-adapters:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+
+
+    testImplementation "org.mockito:mockito-core:2.+"
+    testImplementation 'android.arch.core:core-testing:1.0.0-rc1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '2.9.0'
 }

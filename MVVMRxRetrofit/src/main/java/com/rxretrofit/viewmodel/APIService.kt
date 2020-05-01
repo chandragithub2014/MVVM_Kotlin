@@ -13,4 +13,7 @@ interface APIService {
     @GET("/posts")
     suspend fun  fetchPosts(): Response<List<RetroRxModel>>
 
+
+    @GET("/posts")
+    suspend fun  fetchUserPosts(): Response<List<RetroRxModel>>
 }

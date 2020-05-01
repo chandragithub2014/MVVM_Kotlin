@@ -7,12 +7,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class RetroRXViewModel :ViewModel(), LifecycleObserver {
+class RetroRXViewModel() :ViewModel(), LifecycleObserver {
 
     var postInfoLiveData: LiveData<List<RetroRxModel>> = MutableLiveData()
     var postLoadError : MutableLiveData<String> = MutableLiveData()
@@ -25,9 +26,12 @@ class RetroRXViewModel :ViewModel(), LifecycleObserver {
     @Inject
     lateinit var retrofit: Retrofit
 
+    lateinit var apiService: APIService
+
     init {
         DaggerRetroRxComponent.create().inject(this)
         loading.value = true
+        apiService = retrofit.create(APIService::class.java)
     }
 
     fun fetchRetroResponseLiveData():LiveData<List<RetroRxModel>>{
@@ -36,7 +40,7 @@ class RetroRXViewModel :ViewModel(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun fetchRetroInfo(){
-        compositeDisposable.add(retrofit.create(APIService::class.java).makeRequest()
+        compositeDisposable.add(apiService.makeRequest()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableSingleObserver<List<RetroRxModel>>(){
@@ -49,6 +53,7 @@ class RetroRXViewModel :ViewModel(), LifecycleObserver {
                     e.printStackTrace()
                     postLoadError.value = e.message
                     loading.value = false
+//                   onError(e.localizedMessage)
                 }
             })
         )

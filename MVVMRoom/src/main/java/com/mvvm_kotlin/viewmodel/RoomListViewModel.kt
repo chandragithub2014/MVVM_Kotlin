@@ -4,10 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.room.db.database.RepositoryDB
 import com.room.db.userRepo.UserInfo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class RoomListViewModel(application: Application) : AndroidViewModel(application),
     LifecycleObserver {
@@ -19,28 +16,18 @@ class RoomListViewModel(application: Application) : AndroidViewModel(application
     private val db by lazy { RepositoryDB.getInstance(getApplication()).userDao() }
     val error = MutableLiveData<String>()
     val insertedId =  MutableLiveData<Long>()
+    var scope = viewModelScope
 
-   /* init {
-        coroutineScope.launch{
-            insertData()
-        }
-    }
-*/
-    /*@OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-     fun insertDummyData() {
-        coroutineScope.launch {
-            insertData()
-
-        }
-    }*/
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun fetchRoomData() {
+        scope.launch {
         userFinalList = db.getAllPosts()
+        }
 
     }
 
-     fun insertUser(userInfo: UserInfo){
+     fun insertUserInfo(userInfo: UserInfo){
          if(userInfo.username.isNullOrEmpty() ||
                  userInfo.passwordHash.toString().isNullOrEmpty() ||
                  userInfo.city.isNullOrEmpty() ||
@@ -92,9 +79,37 @@ class RoomListViewModel(application: Application) : AndroidViewModel(application
 
     override fun onCleared() {
         super.onCleared()
+      //  scope.cancel()
     }
    /* private suspend fun  insertList(){
         db.insertAll(userList)
 
     }*/
+
+    fun insertUser(userInfo: UserInfo){
+        scope.launch {
+        if(userInfo.username.isNullOrEmpty() ||
+            userInfo.passwordHash.toString().isNullOrEmpty() ||
+            userInfo.city.isNullOrEmpty() ||
+            userInfo.age.toString().isNullOrEmpty() ||
+            userInfo.phone.isNullOrEmpty()){
+         //   error.value = "Input Fields cannot be Empty"
+            error.postValue("Input Fields cannot be Empty")
+        }else{
+            val user = db.getUserInfo(userInfo.username)
+            if (user != null) {
+
+                   // error.value = "User Already Exists"
+                error.postValue("User Already Exists")
+
+
+            } else {
+                val userId: Long = db.insertRow(userInfo)
+                insertedId.postValue(userId)
+            }
+        }
+        }
+    }
+
+
 }

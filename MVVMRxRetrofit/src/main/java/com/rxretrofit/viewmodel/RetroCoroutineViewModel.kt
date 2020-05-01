@@ -7,12 +7,12 @@ import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class RetroCoroutineViewModel  : ViewModel(),LifecycleObserver{
+class RetroCoroutineViewModel(private val dispatcher: CoroutineDispatcher,private val apiService: APIService)  : ViewModel(),LifecycleObserver{
 
 
 
     //CoRoutine API Call
-    private var job: Job?=null
+
     private val exceptionHandler = CoroutineExceptionHandler{
             _, throwable ->
 
@@ -23,61 +23,67 @@ class RetroCoroutineViewModel  : ViewModel(),LifecycleObserver{
     private val mutableLiveData:MutableLiveData<List<RetroRxModel>> = MutableLiveData()
     var loading : MutableLiveData<Boolean> = MutableLiveData()
 
-    @Inject
+   /* @Inject
     lateinit var retrofit: Retrofit
+*/
+   // lateinit var apiService: APIService
 
     init {
-        DaggerRetroRxComponent.create().inject(this)
+      //  DaggerRetroRxComponent.create().inject(this)
         loading.value = true
+     //   apiService = retrofit.create(APIService::class.java)
     }
 
 
+
+     val postsMutableLiveData:MutableLiveData<List<RetroRxModel>> = MutableLiveData()
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun fetchResponseFromAPI(){
-        job =   CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+        viewModelScope.launch (dispatcher){
+           // postsMutableLiveData.postValue(null)
+            try{
 
-          val response = retrofit.create(APIService::class.java).fetchPosts()
-          withContext(Dispatchers.Main) {
-              try {
-              if (response.isSuccessful) {
+                val response  = apiService.fetchUserPosts()
+                if(response.isSuccessful){
+                    postsMutableLiveData.postValue(response.body())
+                    loading.postValue(false)
+                   // loading.value = false
+                }else{
+                    loading.postValue(false)
+                    errorOnAPI.postValue("Something went wrong::${response.message()}")
+                }
 
-                  mutableLiveData.value = response.body()
-                  loading.value = false
 
-              } else {
-                  onError("Response Error : ${response.message()}")
-                  loading.value = false
-              }
-              }catch (e:Exception){
-                  println("In Catch()......${e.printStackTrace()}")
 
-                  //onError("Response Error : ${e.localizedMessage}")
-
-              }
-          }
+            }catch (e:Exception){
+                loading.postValue(false)
+                errorOnAPI.postValue("Something went wrong::${e.localizedMessage}")
+            }
 
         }
 
     }
 
+    fun fetchPostLiveData(): LiveData<List<RetroRxModel>>  = postsMutableLiveData
+
 
     override fun onCleared() {
         super.onCleared()
-        job?.cancel()
+
     }
 
 
     fun fetchError(): LiveData<String> = errorOnAPI
 
-    fun fetchAPIResponse():LiveData<List<RetroRxModel>> = mutableLiveData
+
 
     fun fetchLoadStatus():LiveData<Boolean> = loading
 
    private  fun onError(message: String){
-
            errorOnAPI.value = message
            loading.value = false
-           job?.cancel()
+
 
     }
 }
