@@ -9,6 +9,7 @@ import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.schedulers.Schedulers
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -36,12 +37,10 @@ class RetroRXViewModelTest {
     @Mock
     lateinit var retrofit: Retrofit
 
-
-
-   @Mock
+    @Mock
     lateinit var apiService: APIService
 
-    @InjectMocks
+   // @InjectMocks
     lateinit var retroRXViewModel: RetroRXViewModel
 
     private lateinit var single: Single<List<RetroRxModel>>
@@ -80,14 +79,11 @@ class RetroRXViewModelTest {
     }
 
 
-    /*@Test
-    fun `test View Model On Cleared`(){
-    //    retroRXViewModel.
-    }*/
+
 
     @Before
     fun setUpRXSchedulers(){
-        retroRXViewModel = RetroRXViewModel()
+        retroRXViewModel = RetroRXViewModel(apiService)
         var immediateThinScheduler  = object: Scheduler(){
 
             override fun createWorker(): Worker {
@@ -100,6 +96,10 @@ class RetroRXViewModelTest {
         RxJavaPlugins.setInitSingleSchedulerHandler { scheduler -> immediateThinScheduler }
         RxJavaPlugins.setInitNewThreadSchedulerHandler { _ -> immediateThinScheduler }
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { _ -> immediateThinScheduler }
+        RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
+        RxJavaPlugins.setComputationSchedulerHandler { Schedulers.trampoline() }
+        RxJavaPlugins.setNewThreadSchedulerHandler { Schedulers.trampoline() }
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
 
     }
 

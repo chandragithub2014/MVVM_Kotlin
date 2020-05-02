@@ -13,7 +13,7 @@ import kotlinx.coroutines.Job
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class RetroRXViewModel() :ViewModel(), LifecycleObserver {
+class RetroRXViewModel(private val apiService: APIService) :ViewModel(), LifecycleObserver {
 
     var postInfoLiveData: LiveData<List<RetroRxModel>> = MutableLiveData()
     var postLoadError : MutableLiveData<String> = MutableLiveData()
@@ -23,15 +23,15 @@ class RetroRXViewModel() :ViewModel(), LifecycleObserver {
 
 
 
-    @Inject
+  /*  @Inject
     lateinit var retrofit: Retrofit
 
     lateinit var apiService: APIService
-
+*/
     init {
         DaggerRetroRxComponent.create().inject(this)
         loading.value = true
-        apiService = retrofit.create(APIService::class.java)
+     //   apiService = retrofit.create(APIService::class.java)
     }
 
     fun fetchRetroResponseLiveData():LiveData<List<RetroRxModel>>{

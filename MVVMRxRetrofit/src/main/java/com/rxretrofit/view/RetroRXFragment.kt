@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rxretrofit.R
@@ -19,6 +20,7 @@ import com.rxretrofit.model.RetroRxModel
 import com.rxretrofit.viewmodel.RetroRXViewModel
 import kotlinx.android.synthetic.main.fragment_retro_rx.view.*
 import com.mvvm.common.utils.*
+import com.rxretrofit.viewmodel.RetroViewModelFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +36,7 @@ class RetroRXFragment : Fragment() ,LifecycleOwner{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private  val viewModel : RetroRXViewModel by viewModels()
+    lateinit var viewModel : RetroRXViewModel
     lateinit var retrorxView : View
     private val adapter = RetrofitAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,7 @@ class RetroRXFragment : Fragment() ,LifecycleOwner{
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        initViewModel()
         activity?.lifecycle?.addObserver(viewModel)
 
     }
@@ -59,6 +62,7 @@ class RetroRXFragment : Fragment() ,LifecycleOwner{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         println("In onViewCreated().........")
+
         setHasOptionsMenu(true)
         val toolbar = view.findViewById<Toolbar>(R.id.toolBar)
         val title = toolbar.findViewById<TextView>(R.id.toolbar_title)
@@ -71,6 +75,10 @@ class RetroRXFragment : Fragment() ,LifecycleOwner{
         view.retroList.adapter = adapter
     }
 
+    fun initViewModel() {
+        var retroViewModelFactory = RetroViewModelFactory()
+        viewModel = ViewModelProviders.of(this, retroViewModelFactory).get(RetroRXViewModel::class.java)
+    }
     override fun onResume() {
         super.onResume()
        // println("In onResume().........")
