@@ -118,12 +118,14 @@ class RoomDataBaseFragment : Fragment(),LifecycleOwner {
         //noinspection SimplifiableIfStatement
         return if (id == R.id.action_settings) {
             Toast.makeText(activity,"Clicked on Add",Toast.LENGTH_LONG).show()
-            activity?.replaceFragment(AddUserFragment(),mContainerId)
+            var addUserFragment = AddUserFragment()
+            activity?.replaceFragment(addUserFragment,mContainerId)
             true
         } else return super.onOptionsItemSelected(item)
 
 
     }
+
 
     companion object {
         /**

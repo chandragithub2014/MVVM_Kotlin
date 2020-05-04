@@ -1,8 +1,11 @@
 package com.mvvm_kotlin.view
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +14,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.mvvm.common.modalbottomsheetdialog.ModalCustomBottomSheet
 import com.mvvm_kotlin.R
 import com.mvvm_kotlin.viewmodel.RoomListViewModel
 import com.room.db.userRepo.UserInfo
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,10 +87,16 @@ class AddUserFragment : Fragment() ,LifecycleOwner{
         }
         observeViewModel()
     }
-
+   private var userInfo:UserInfo?=null
     private fun onSaveClick(userInfo: UserInfo){
-        viewModel.insertUser(userInfo)
+    //    viewModel.insertUser(userInfo)
+        this.userInfo = userInfo
+        showCustomModalBottomSheet()
+
     }
+
+
+
 
     private  fun observeViewModel(){
         viewModel.error.observe(viewLifecycleOwner,
@@ -143,4 +154,48 @@ class AddUserFragment : Fragment() ,LifecycleOwner{
                 }
             }
     }
+
+/*    override fun providesBottomSheetView(view: View) {
+        view.ok_tv.setOnClickListener {
+            userInfo?.let { it1 -> viewModel.insertUser(it1) }
+        }
+        view.cancel_tv.setOnClickListener {
+            modalBottomSheet?.dismiss()
+        }
+    }*/
+
+
+    private var modalBottomSheet : ModalCustomBottomSheet?=null
+    private fun showCustomModalBottomSheet(){
+         modalBottomSheet = ModalCustomBottomSheet.newInstance(false,R.layout.confirmation_bottom_sheet)
+        activity?.supportFragmentManager?.let { modalBottomSheet?.show(it, ModalCustomBottomSheet.TAG) }
+
+
+    }
+
+
+    private val activityReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+           println("Received ${intent?.getStringExtra("itemName")}")
+            when(intent?.getStringExtra("itemName")){
+                "OK" ->{
+                    modalBottomSheet?.dismiss()
+                    userInfo?.let { viewModel.insertUser(it) }
+                }
+                "Cancel"  -> modalBottomSheet?.dismiss()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.registerReceiver(activityReceiver,  IntentFilter("KEY"));
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.unregisterReceiver(activityReceiver)
+    }
+
+
 }

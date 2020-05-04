@@ -7,23 +7,35 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".BottomSheetActivity">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".BottomSheetActivity">
 
-    <Button
-        android:id="@+id/display_bottom_sheet"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:text="Display bottomsheet"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.173"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".BottomSheetActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/display_bottom_sheet"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:text="Display bottomsheet"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.173"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/display_bottom_sheet_dialog"
+            android:layout_width="0dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="44dp"
+            android:text="BottomSheetDialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/display_bottom_sheet" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout= "@layout/bottomsheet_layout"
         />

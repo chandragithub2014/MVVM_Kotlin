@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.mvvm.common.modalbottomsheetdialog.ModalBottomSheet
+import com.mvvm.common.modalbottomsheetdialog.ModalCustomBottomSheet
 import kotlinx.android.synthetic.main.activity_bottom_sheet.*
 import kotlinx.android.synthetic.main.bottomsheet_layout.*
+import kotlinx.android.synthetic.main.layout_bottom_sheet_dialog.view.*
 
-class BottomSheetActivity : AppCompatActivity() {
+class BottomSheetActivity : AppCompatActivity(),ModalCustomBottomSheet.ModalBottomSheetListener {
+    private var modalDismissWithAnimation = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_sheet)
@@ -20,6 +24,15 @@ class BottomSheetActivity : AppCompatActivity() {
             }
         }
 
+        display_bottom_sheet_dialog.setOnClickListener {
+            if(!modalDismissWithAnimation)
+            {
+               // showModalBottomSheet()
+                showCustomModalBottomSheet()
+            }else{
+                modalDismissWithAnimation = !modalDismissWithAnimation
+            }
+        }
         val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -40,4 +53,19 @@ class BottomSheetActivity : AppCompatActivity() {
         }
         bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
     }
+
+    private fun showModalBottomSheet() {
+        val modalBottomSheet = ModalBottomSheet.newInstance(modalDismissWithAnimation)
+        modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+    }
+
+    private fun showCustomModalBottomSheet(){
+        val modalBottomSheet = ModalCustomBottomSheet.newInstance(modalDismissWithAnimation,R.layout.layout_bottom_sheet_dialog)
+        modalBottomSheet.show(supportFragmentManager, ModalCustomBottomSheet.TAG)
+    }
+
+    override fun providesBottomSheetView(view: View) {
+        view.textView2.setOnClickListener { view.textView2.text = "Clicked" }
+    }
+
 }
