@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="MVVM_Kotlin.AppNavigator" target="1.8" />
+      <module name="MVVM_Kotlin.BottomSheet" target="1.8" />
       <module name="MVVM_Kotlin.Common" target="1.8" />
       <module name="MVVM_Kotlin.DaggerPractice" target="1.8" />
       <module name="MVVM_Kotlin.Dynamicfeature" target="1.7" />

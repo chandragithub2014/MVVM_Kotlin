@@ -89,7 +89,7 @@ class RetroCoroutineViewModelTest {
         }
     }*/
 val testDispatcher = TestCoroutineDispatcher()
-    @Test /*(expected = TimeoutCancellationException::class)*/
+    @Test
     fun `check viewmodel fetches data correctly`() = testDispatcher.runBlockingTest{
         var retroRxModel = RetroRxModel("tile", "body", "1")
         var retroRXModelList = ArrayList<RetroRxModel>()

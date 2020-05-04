@@ -88,9 +88,10 @@ class LauncherFragment : Fragment(), LifecycleOwner,AdapterClickListener {
                 "FieldInjection" -> context?.openActivity(Class.forName("com.dagger.practice.FieldInjectionActivity"))
                 "InterfaceInjection" -> context?.openActivity(Class.forName("com.dagger.practice.InterfaceInjectionActivity"))
                 "NamedInjection" -> context?.openActivity(Class.forName("com.dagger.practice.NamedInjectionActivity"))
-                 "SingletonInjection" -> context?.openActivity(Class.forName("com.dagger.practice.SingletonInjectionActivity"))
+                "SingletonInjection" -> context?.openActivity(Class.forName("com.dagger.practice.SingletonInjectionActivity"))
                 "SubComponentInjection" -> context?.openActivity(Class.forName("com.dagger.practice.CricketActivity"))
-            }
+                "BottomSheetSamples" -> context?.openActivity(Class.forName("com.bottomsheet.BottomSheetActivity"))
+              }
         }catch (e:Exception){
             e.printStackTrace()
         }
