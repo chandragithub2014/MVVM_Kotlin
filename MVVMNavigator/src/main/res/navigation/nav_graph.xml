@@ -10,15 +10,23 @@
         android:name="com.mvvm.navigator.view.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login_navigator">
-    <action app:destination="@id/registrationFragment"
-        android:id="@+id/action_loginFragment_to_registrationFragment"  >
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit">
 
-    </action>
+        </action>
 
         <action
-            app:destination="@id/loginSucessFragment"
             android:id="@+id/action_loginFragment_to_loginSucessFragment"
-            ></action>
+            app:destination="@id/loginSucessFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"></action>
+        <argument
+            android:name="success_message"
+            app:argType="string"
+            android:defaultValue='""' />
 
     </fragment>
 
@@ -33,5 +41,10 @@
         android:name="com.mvvm.navigator.view.LoginSuccessFragment"
         android:label="LoginSuccessFragment"
         tools:layout="@layout/fragment_login_success"
-        ></fragment>
+        >
+        <argument
+            android:name="success_message"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package com.mvvm.navigator.viewmodel
 
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mvvm.navigator.model.LoginModel
@@ -10,6 +11,7 @@ class LoginViewModel : ViewModel(),LifecycleObserver{
 
 
     var loginStatus = MutableLiveData<String>()
+    var loginButtonClicked = MutableLiveData<Boolean>()
 
 
     fun validateLogin(loginModel: LoginModel){
@@ -26,6 +28,14 @@ class LoginViewModel : ViewModel(),LifecycleObserver{
            loginStatus.value = "Login Failed"
        }
     }
+
+    fun setLoginButtonClickedStatus(isClicked : Boolean){
+        loginButtonClicked.value = isClicked
+    }
+
+    fun fetchLoginStatus():LiveData<String> = loginStatus
+
+    fun fetchLoginButtonClickedStatus():LiveData<Boolean> = loginButtonClicked
 
     override fun onCleared() {
         super.onCleared()

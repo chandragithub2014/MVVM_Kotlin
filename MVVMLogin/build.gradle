@@ -72,7 +72,7 @@ dependencies {
 
     //Mockito
     testImplementation "org.mockito:mockito-core:2.+"
-    testImplementation 'android.arch.core:core-testing:1.0.0-rc1'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    testImplementation 'androidx.arch.core:core-testing:2.0.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '2.9.0'
 }

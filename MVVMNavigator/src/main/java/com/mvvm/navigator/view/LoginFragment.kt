@@ -59,6 +59,7 @@ class LoginFragment : Fragment(),LifecycleOwner {
     }
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
        // println("onViewCreated().......")
@@ -78,20 +79,39 @@ class LoginFragment : Fragment(),LifecycleOwner {
 
     private fun observerViewModel(viewModel:LoginViewModel){
         println("In observeViewModel()")
-      viewModel.loginStatus.observe(viewLifecycleOwner, Observer<String> {
-                t ->
-          Toast.makeText(activity,t,Toast.LENGTH_LONG).show()
-          println("In onChanged()")
-          if(t=="Login Successful") {
-              val action = LoginFragmentDirections.actionLoginFragmentToLoginSucessFragment()
-              findNavController().navigate(action)
-          }
+        viewModel.fetchLoginButtonClickedStatus().observe(viewLifecycleOwner, Observer {
+            t->
+            if(t){
+                observeLoginStatus(viewModel)
+            }
         })
+
         }
 
+    private fun observeLoginStatus(viewModel:LoginViewModel){
+        viewModel.setLoginButtonClickedStatus(false)
+        viewModel.fetchLoginStatus().observe(viewLifecycleOwner, Observer<String> {
+                t ->
+            Toast.makeText(activity,t,Toast.LENGTH_LONG).show()
+            println("In onChanged()")
+            if(t=="Login Successful") {
+                var userName = loginView.password_editText.text.toString()
+                var passWord = loginView.password_editText.text.toString()
+                val action = LoginFragmentDirections.actionLoginFragmentToLoginSucessFragment("Login Successful with " +
+                        "$userName and $passWord")
+                println("Current Destination Id ${findNavController().currentDestination.toString()}")
+                   if(findNavController().currentDestination?.id ==  R.id.loginFragment ) {
+                       findNavController().navigate(action)
+                   }
+              //  findNavController().navigate(action)
+
+            }
+        })
+    }
      private fun onLoginClick(view: View,viewModel: LoginViewModel){
          var loginModel = LoginModel(view.userName_editText.text.toString(),
              view.password_editText.text.toString())
+         viewModel.setLoginButtonClickedStatus(true)
          viewModel.validateLogin(loginModel)
 
      }
@@ -99,8 +119,10 @@ class LoginFragment : Fragment(),LifecycleOwner {
     override fun onStop() {
         super.onStop()
         println("OnStop()")
+        clearInputFields()
+        viewModel.setLoginButtonClickedStatus(false)
         this.viewModelStore.clear()
-      //  viewModel.loginStatus.removeObservers(this)
+
     }
 
     override fun onDestroy() {
@@ -110,6 +132,12 @@ class LoginFragment : Fragment(),LifecycleOwner {
     private fun navigateToRegistration(){
         val action = LoginFragmentDirections.actionLoginFragmentToRegistrationFragment()
         findNavController().navigate(action)
+    }
+
+    private fun clearInputFields(){
+        loginView.userName_editText.setText("")
+        loginView.password_editText.setText("")
+
     }
     companion object {
         /**
