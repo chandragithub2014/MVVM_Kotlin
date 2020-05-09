@@ -80,4 +80,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '2.9.0'
     implementation 'com.google.android.material:material:1.1.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+
+    //Shared Preferences
+    implementation "androidx.preference:preference-ktx:1.1.0"
+    implementation 'androidx.core:core-ktx:1.2.0'
 }
