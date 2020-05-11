@@ -73,6 +73,7 @@ class DataBidingViewModel  : ViewModel(),LifecycleObserver{
 
     fun fetchImageURL(position: Integer):String = imgURLList[position.toInt()].toString()
 
+    
 
 }
 

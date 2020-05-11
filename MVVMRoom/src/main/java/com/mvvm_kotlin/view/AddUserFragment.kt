@@ -22,6 +22,8 @@ import com.mvvm.common.modalbottomsheetdialog.ModalCustomBottomSheet
 import com.mvvm_kotlin.R
 import com.mvvm_kotlin.viewmodel.RoomListViewModel
 import com.room.db.userRepo.UserInfo
+import com.utilslibrary.loggerutils.LoggerHelper
+import com.utilslibrary.sharedprefsutils.SharedPreferencesHelper
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,6 +36,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AddUserFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+private const val TAG = "AddUserFragment"
 class AddUserFragment : Fragment() ,LifecycleOwner{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -105,16 +108,24 @@ class AddUserFragment : Fragment() ,LifecycleOwner{
         viewModel.insertedId.observe(viewLifecycleOwner,
             Observer<Long> { t ->
                 if(t != -1L){
-                    Toast.makeText(activity,"Inserted Successfully",Toast.LENGTH_LONG).show()
+                   // Toast.makeText(activity,"Inserted Successfully",Toast.LENGTH_LONG).show()
+                    context?.applicationContext?.let{  SharedPreferencesHelper.invoke(it).saveLongPreferences("insertedID",t)}
+
+                    context?.applicationContext?.let { LoggerHelper().displayToast(it,"Inserted Successfully in DB") }
                     activity?.let{
 
                         activity?.supportFragmentManager?.popBackStack()
                     }
 
                 }else{
-                    Toast.makeText(activity,"Insert Failed",Toast.LENGTH_LONG).show()
+                   // Toast.makeText(activity,"Insert Failed",Toast.LENGTH_LONG).show()
+                    context?.applicationContext?.let { LoggerHelper().displayToast(it,"Inserted Successfully") }
                 }
+                val sharedPreferencesVal = context?.applicationContext?.let{SharedPreferencesHelper.invoke(it).fetchLongPreferences("insertedID")}
+                LoggerHelper().displayDebugLog(TAG,"Inserted Id:::${sharedPreferencesVal}")
+                println("Shared Preferences Data:::::${sharedPreferencesVal}")
             })
+
     }
 
     private fun initToolBar(view: View){
