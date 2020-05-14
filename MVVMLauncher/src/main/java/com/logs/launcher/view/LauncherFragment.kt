@@ -91,7 +91,9 @@ class LauncherFragment : Fragment(), LifecycleOwner,AdapterClickListener {
                 "SingletonInjection" -> context?.openActivity(Class.forName("com.dagger.practice.SingletonInjectionActivity"))
                 "SubComponentInjection" -> context?.openActivity(Class.forName("com.dagger.practice.CricketActivity"))
                 "BottomSheetSamples" -> context?.openActivity(Class.forName("com.bottomsheet.BottomSheetActivity"))
-              }
+                "KotlinPractice"-> context?.openActivity(Class.forName("com.kotlinpractice.KotlinPracticeActivity"))
+
+            }
         }catch (e:Exception){
             e.printStackTrace()
         }

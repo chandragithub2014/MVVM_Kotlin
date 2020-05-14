@@ -1,3 +1,4 @@
+include ':KotlinPractice'
 include ':BottomSheet'
 include ':DaggerPractice'
 include ':MVVMNavigator'

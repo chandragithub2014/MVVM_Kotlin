@@ -50,6 +50,7 @@ dependencies {
     implementation project(path: ':MVVMNavigator')
     implementation project(path: ':DaggerPractice')
     implementation project(path: ':BottomSheet')
+    implementation project(path: ':KotlinPractice')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'

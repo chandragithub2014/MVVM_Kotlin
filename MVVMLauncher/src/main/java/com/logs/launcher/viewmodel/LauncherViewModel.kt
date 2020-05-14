@@ -33,8 +33,7 @@ class LauncherViewModel : ViewModel(),LifecycleObserver{
         launcherList.add("SingletonInjection")
         launcherList.add("SubComponentInjection")
         launcherList.add("BottomSheetSamples")
-
-
+        launcherList.add("KotlinPractice")
 
     }
 
