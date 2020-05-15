@@ -29,6 +29,7 @@ class KotlinPracticeActivity : AppCompatActivity() {
         enumClassesPractice()
         sealedClassesPractice()
         nestedClassessPractice()
+        standardFunctionsPractice()
 
     }
 
@@ -561,6 +562,165 @@ fun fetchPrize(): Prizes{
     }
 
 
+    private fun standardFunctionsPractice(){
+        //Standard functions also called Scope functions .
+        //These fncns execute code in the context of the object
+        //Creates a temporary scope while code is executed.
+        // There are 5 Scope functions : let,also,run,apply,with
+        //There are 2 check functions :  takeIf and takeUnless
+        letPractice()
+        withPractice()
+        runPractice()
+        applyPractice()
+        alsoPractice()
+        takeIfAndTakeUnlessPractice()
+
+    }
+
+    //Let -> Allows to run some code on Object or result of fncns or chain of calls
+    // Can access result as a Lambda argument using  "it"
+    private fun letPractice(){
+        println("LET PRACTICE :::::::::::::::")
+        val animalList = listOf("Cat","Cow","Dog","Pig","Tiger","Elephant", "Zebra","Buffalo","Lion")
+        animalList.map { it.length }
+            .filter { it > 3 }
+            .let {
+                 println(it)
+                println("Size of List ${it.size}")
+               }
+
+
+        println("Example 2 ")
+        val myAnimalList = listOf("Cat","dog",null,"Buffalo")
+        myAnimalList.forEach {
+            it?.let {
+                println("Feeding the Animal $it")
+            }
+
+        }
+    }
+
+    //The 'With' function perform block of code on an object
+    //The context is referred as "this"
+    //Use case : Perform some initialization of an object
+    //Perform a sequence of actions on an object
+    private fun withPractice(){
+        var person = Person("Chandra","Mohan","Niker")
+          with(person){
+              firstName = "Bhupathi"
+              lastName = "Chandra"
+              shoes = "Reabok"
+              inventory = 34
+              printPerson()
+
+          }
+    }
+
+    data class Person(var firstName : String, var lastName : String, var shoes : String,var inventory:Int = 0){
+         fun printPerson(){
+            println("$firstName $lastName $inventory ")
+        }
+    }
+    //Run is similar to let and with but run fncns is an extension fncn that  is useful when u want lambda to return a result
+    //Also Run is used to limit the scope  of variables
+    private fun runPractice(){
+    var  restaurant = Restaurant("Pizza", "Burger")
+        restaurant.printMenu()
+
+      var restaurant1 =   run{
+            println("In Run Block")
+            var restaurant = Restaurant("","")
+            restaurant.standardDish = "Bread"
+            restaurant.todaySpecial = "Biryani"
+            restaurant.printMenu()
+            this
+        }
+        println(restaurant1)
+
+       Laptop().run{
+             turnOff()
+           turnOn()
+        }
+    }
+
+    data class Restaurant(var standardDish:String, var todaySpecial : String){
+         fun printMenu(){
+             println("Today's Menu is standardish::: $standardDish and todaySpecial:::: $todaySpecial")
+         }
+    }
+
+    class Laptop {
+          fun turnOn(){
+              println("Laptop is turned on")
+          }
+
+         fun turnOff(){
+             println("Laptop is turned Off")
+         }
+    }
+
+    private fun applyPractice(){
+        //This function is used to apply some functionality and return result
+        //Returns an object that is initialize
+        //Ex: Apply some configuration during object  creation
+
+        CofeeShop().sellCoffeeToClient("Amex")
+    }
+
+    class CofeeShop {
+        fun sellCoffeeToClient(name : String){
+            CupOfCoffee().apply {
+                clientName = name
+                prepareCoffee()
+            }
+            println("Selling Coffeee to Client ${name}")
+
+        }
+    }
+
+    class CupOfCoffee{
+        var clientName = ""
+        fun prepareCoffee(){
+            println("Preparing cofee for $clientName")
+        }
+    }
+
+
+    private fun alsoPractice(){
+        //Also is used to perform some additional actions on object
+        //Common usecase is Logging/debugging that does not effect the object
+        println("Also Practice Started :::::::::")
+        MyCar().apply {
+            printCar()
+        }
+            .also {
+                println("New Car is built and log is updated $it")
+                println("Policy is updated for $it")
+            }
+
+    }
+    class MyCar {
+        fun printCar(){
+            println("Car is build")
+        }
+    }
+
+    private fun takeIfAndTakeUnlessPractice(){
+        //TakeIf : Returns an object if the predicate values are true otherwise returns null
+        //TakeUnless  : Returns an object if the predicate values are false otherwise returns null
+        println("Take If and Take Unless.......")
+        val listOfNumbers = listOf(1,2,3,4,5,6,7,8,9,10,11,12,13,43,42,25)
+        println("List OF Numbers $listOfNumbers")
+        val newList : ArrayList<Int>  = arrayListOf()
+        for(num in listOfNumbers){
+            num.takeIf { it % 2 == 1  }
+                .takeUnless { it == 3 ||  it == 13 }?.let{
+                    newList.add(it)
+                }
+        }
+
+          println("New List is  $newList")
+    }
 }
 
 class Computer{
