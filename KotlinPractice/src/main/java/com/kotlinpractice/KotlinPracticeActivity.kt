@@ -20,6 +20,8 @@ class KotlinPracticeActivity : AppCompatActivity() {
         handleNullables()
         listDemos()
         arrayListDemo()
+        setAndHashSetDemo()
+        hashMapDemo()
         lambdaPractice()
         aboutExtensions()
         genericsPractice()
@@ -181,7 +183,26 @@ class KotlinPracticeActivity : AppCompatActivity() {
         println("is $subList empty ${subList.isEmpty()}")
     }
 
+private fun   setAndHashSetDemo(){
 
+      var myCustomerHashSet = hashSetOf<String>()
+      val customerList = listOf<String>("John","Micjh","Robert")
+      println("Initial Set Empty $myCustomerHashSet")
+      myCustomerHashSet.addAll(customerList)
+      println("After Adding ..... $myCustomerHashSet")
+
+      myCustomerHashSet.remove("Micjh")
+    println("After Removing a Customer $myCustomerHashSet")
+
+
+      var acceptedColors = hashSetOf("white", "black", "grey")
+    var  myColors = hashSetOf("blue", "red", "black", "green")
+    println("Colors that can be worn ${myColors.retainAll(acceptedColors)}  ::: $myColors")
+    var newacceptedColors =  hashSetOf("white", "black", "grey")
+    myColors = hashSetOf("blue", "red", "black", "green")
+    newacceptedColors.add("red")
+    println("Colors that can be worn after new color added to accepted colors ${myColors.retainAll(newacceptedColors)}  :: $myColors")
+}
     private fun lambdaPractice() {
         //Lambda fncns are the fncns that don't have name. They are kind of Anonymous fncns.
         // Ex: val myLambda = {name : String -> println("Hello $name")}
@@ -720,6 +741,45 @@ fun fetchPrize(): Prizes{
         }
 
           println("New List is  $newList")
+    }
+
+    private fun hashMapDemo(){
+        println("HASHMAP DEMO :::::::::::::::::::::::::::::::::")
+        var attendance = hashMapOf(Pair("23 Sept", 2837), Pair("24 Sept", 3726), Pair("25 Sept", 6253))
+        attendance["26 Sept"] = 6254
+        println("HashMAP :::: $attendance")
+
+        val count_26  = attendance["26 Sept"]?:0
+        val count_25 = attendance["25 Sept"]?:0
+
+
+
+       // val total =  if(count_25 != null && count_26  != null) {count_25 + count_26} else {}
+        println("total ${count_26 + count_25}")
+
+
+        println("Data contains for Sep 22 ${attendance.containsKey("22 Sept")}")
+        forLoopPractice()
+
+    }
+
+
+    private fun forLoopPractice(){
+        println("For Loop Practice :::::::::::::::::::::::::::::::::::::::::::")
+        var matrixSize = 10
+        for( i in 1..matrixSize) {
+             for(j in 1..matrixSize){
+                 val prod = i * j
+                 if(prod % 3 ==0){
+                      print("\uD83D\uDE00 ")
+                 } else if(prod % 3 == 1){
+                      print("\uD83E\uDD28 ")
+                 }else  if( prod%3 ==2){
+                     print("\uD83D\uDE31 ")
+                 }
+             }
+            println()
+        }
     }
 }
 

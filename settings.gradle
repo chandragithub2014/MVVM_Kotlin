@@ -1,3 +1,6 @@
+include ':utilslibrary-release'
+include ':utilslibrary-release'
+include ':utilslibrary-release'
 include ':KotlinPractice'
 include ':BottomSheet'
 include ':DaggerPractice'

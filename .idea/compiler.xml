@@ -2,6 +2,11 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="AppNavigator" target="1.8" />
+      <module name="BottomSheet" target="1.8" />
+      <module name="Common" target="1.8" />
+      <module name="DaggerPractice" target="1.8" />
+      <module name="KotlinPractice" target="1.8" />
       <module name="MVVM_Kotlin.AppNavigator" target="1.8" />
       <module name="MVVM_Kotlin.BottomSheet" target="1.8" />
       <module name="MVVM_Kotlin.Common" target="1.8" />
@@ -15,6 +20,13 @@
       <module name="MVVM_Kotlin.MVVMRoom" target="1.8" />
       <module name="MVVM_Kotlin.MVVMRxRetrofit" target="1.8" />
       <module name="MVVM_Kotlin.RoomRepository" target="1.8" />
+      <module name="MVVMDataBinding" target="1.8" />
+      <module name="MVVMLauncher" target="1.8" />
+      <module name="MVVMLogin" target="1.8" />
+      <module name="MVVMNavigator" target="1.8" />
+      <module name="MVVMRoom" target="1.8" />
+      <module name="MVVMRxRetrofit" target="1.8" />
+      <module name="RoomRepository" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

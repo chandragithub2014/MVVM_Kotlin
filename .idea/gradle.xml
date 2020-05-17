@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/MVVMRoom" />
             <option value="$PROJECT_DIR$/MVVMRxRetrofit" />
             <option value="$PROJECT_DIR$/RoomRepository" />
+            <option value="$PROJECT_DIR$/utilslibrary-release" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
