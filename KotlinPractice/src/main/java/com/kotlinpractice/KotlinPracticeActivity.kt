@@ -32,6 +32,8 @@ class KotlinPracticeActivity : AppCompatActivity() {
         sealedClassesPractice()
         nestedClassessPractice()
         standardFunctionsPractice()
+        construtorPractice()
+        oopsPractice()
 
     }
 
@@ -619,6 +621,13 @@ fun fetchPrize(): Prizes{
             }
 
         }
+
+        println("Let Example3  ")
+        val myVal = "20"
+        myVal.toInt()?.let {
+
+            println("Doubling the $it as ${it*2}")
+        }
     }
 
     //The 'With' function perform block of code on an object
@@ -626,6 +635,7 @@ fun fetchPrize(): Prizes{
     //Use case : Perform some initialization of an object
     //Perform a sequence of actions on an object
     private fun withPractice(){
+        println("With Practice :::::::::::::::::::::::::::::::::::::::::::")
         var person = Person("Chandra","Mohan","Niker")
           with(person){
               firstName = "Bhupathi"
@@ -635,8 +645,20 @@ fun fetchPrize(): Prizes{
               printPerson()
 
           }
+
+        println("With Practice Second Example2::::::::")
+        with(Bus()){
+            speed = 100
+            drive()
+        }
     }
 
+    class Bus{
+        var speed = 50
+        fun drive(){
+            println("Bus drives @ ${speed}speed ")
+        }
+    }
     data class Person(var firstName : String, var lastName : String, var shoes : String,var inventory:Int = 0){
          fun printPerson(){
             println("$firstName $lastName $inventory ")
@@ -644,6 +666,7 @@ fun fetchPrize(): Prizes{
     }
     //Run is similar to let and with but run fncns is an extension fncn that  is useful when u want lambda to return a result
     //Also Run is used to limit the scope  of variables
+    //Run is represented as "this" and the run returns the last statement that is executed.
     private fun runPractice(){
     var  restaurant = Restaurant("Pizza", "Burger")
         restaurant.printMenu()
@@ -781,6 +804,77 @@ fun fetchPrize(): Prizes{
             println()
         }
     }
+
+    private fun construtorPractice(){
+        println("Constructor PRactice ::::::::::::::::::::::")
+        var userAccount1 = onLineStoreUserAccount()
+        userAccount1.age = 10
+        userAccount1.printCanBuyTshirt()
+
+        var userAccount2 = onLineStoreUserAccount("Johny",40,40)
+        userAccount2.age = 40
+        userAccount2.printCanBuyTshirt()
+
+        var userAccount3 = onLineStoreUserAccount("Kerry",10,32)
+        userAccount3.age = 32
+        userAccount3.printCanBuyTshirt()
+    }
+
+    private fun oopsPractice(){
+        println("Oops Interface Practice :::::::::::::::::::::::::::")
+      val arabicaCoffe : Coffee  = CofeeFactory("Arabica").getCofee()
+        val  robusta : Coffee =  CofeeFactory("Robusta").getCofee()
+
+
+        arabicaCoffe.describeCofee()
+        robusta.describeCofee()
+    }
+}
+
+interface Coffee{
+    var coffeName : String
+
+    fun describeCofee()
+
+}
+
+class Arabica : Coffee{
+    override var coffeName: String = "Arabica"
+
+
+    override fun describeCofee() {
+        println("$coffeName wake you up")
+    }
+
+}
+
+class Robusta : Coffee{
+    override var coffeName: String = "Robusta"
+
+
+    override fun describeCofee() {
+        println("$coffeName quench your thirst.")
+    }
+
+}
+
+/*
+ A class can implement multiple interfaces
+ An interface cannot have constructor
+ An Interface can't initialize values but can update them
+
+ */
+class  CofeeFactory(val name : String) {
+     lateinit var coffee : Coffee
+         fun getCofee() : Coffee {
+             when(name){
+                 "Robusta" -> coffee =   Robusta()
+                 "Arabica" -> coffee =   Arabica()
+             }
+
+             return  coffee
+         }
+
 }
 
 class Computer{
@@ -796,6 +890,35 @@ class Computer{
                println("Operating System is Ready")
            }
     }
+
+}
+class onLineStoreUserAccount{
+    var userName = "Test"
+    var balance = 0
+
+    var age : Int = 0
+      get() = field
+    set(value){ field = value}
+
+    constructor(){
+        userName = "John"
+        balance = 20
+    }
+
+    constructor(userName:String, balance :Int, age : Int){
+        this.userName = userName
+        this.balance = balance
+    }
+
+    fun printCanBuyTshirt(){
+
+        if(balance < 20){
+            println("$userName cannot buy Thshirt with $balance as TShirt cost is 20 and his age is $age")
+        }else {
+            println("$userName can buy Thshirt with $balance as TShirt cost is 20 and age is $age")
+        }
+    }
+
 
 }
 sealed class Prizes
