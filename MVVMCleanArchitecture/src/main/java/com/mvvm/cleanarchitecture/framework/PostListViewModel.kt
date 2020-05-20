@@ -14,47 +14,32 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PostViewModel(application: Application) : AndroidViewModel(application) {
+class PostListViewModel(application : Application)  : AndroidViewModel(application) {
 
     private  val coroutineScope = CoroutineScope(Dispatchers.IO)
-    val repository = PostDataRepository(RoomPostDataSource(application))
-    val currentPost = MutableLiveData<PostModel?>()
+    private val repository = PostDataRepository(RoomPostDataSource(application))
     private val useCases = UseCases(
         AddPost(repository),
         GetPost(repository),
         GetPosts(repository),
         RemovePost(repository)
     )
+    private val postsList = MutableLiveData<List<PostModel>>()
+    private val isLoading  = MutableLiveData<Boolean>()
 
-    private val saved = MutableLiveData<Boolean>()
-
-
-    fun savePost(postModel: PostModel){
+    fun fetchPostsFromDB(){
         coroutineScope.launch {
-            useCases.addPost(postModel)
-            saved.postValue(true)
-
+            useCases.getPosts
+           postsList.postValue(useCases.getPosts())
+            isLoading.postValue(false)
         }
+
     }
 
 
-    fun getPost(id : Long){
-        coroutineScope.launch {
-           var post =  useCases.getPost(id)
-            currentPost.postValue(post)
-        }
-    }
+    fun fetchPostsList(): LiveData<List<PostModel>> = postsList
+
+    fun fetchProgress():LiveData<Boolean> = isLoading
 
 
-    fun deletePost(postModel: PostModel){
-        coroutineScope.launch {
-            useCases.removePost(postModel)
-            saved.postValue(true)
-        }
-    }
-
-    fun fetchSavedLiveData():LiveData<Boolean> = saved
-
-
-    fun fetchCurrentPostLiveData():LiveData<PostModel?> = currentPost
 }

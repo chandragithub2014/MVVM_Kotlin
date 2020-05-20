@@ -22,7 +22,8 @@ data class PostEntity(
             postModel.title,
             postModel.body,
             postModel.creationTime,
-            postModel.updateTime
+            postModel.updateTime,
+            postModel.id
         )
     }
 
