@@ -1,4 +1,7 @@
 include ':utilslibrary-release'
+include ':MVVMCore'
+include ':MVVMCleanArchitecture'
+include ':utilslibrary-release'
 include ':utilslibrary-release'
 include ':utilslibrary-release'
 include ':KotlinPractice'

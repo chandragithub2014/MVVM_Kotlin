@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id  'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -35,24 +36,22 @@ android {
 }
 
 dependencies {
+    implementation project(':MVVMCore')
+    implementation project(path: ':AppNavigator')
+    implementation project(path: ':Common')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    def coroutine_version = "1.3.4"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.fragment:fragment-ktx:1.3.0-alpha03'
 
-    ext.dagger2_version = '2.24'
     // Basic Dagger 2 (required)
     implementation "com.google.dagger:dagger:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
@@ -60,38 +59,56 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$dagger2_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
 
-    def rxJava_version = "2.2.19"
-    def rxAndroid_version = "2.1.1"
+
+
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
 
 
-    def retrofit_version = "2.6.1"
+
     implementation  "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation  "com.squareup.retrofit2:retrofit-converters:$retrofit_version"
     implementation "com.squareup.retrofit2:retrofit-adapters:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
-
-    testImplementation "org.mockito:mockito-core:2.+"
-    testImplementation 'androidx.arch.core:core-testing:2.0.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '2.9.0'
-    implementation 'com.google.android.material:material:1.1.0'
-
-    //Glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.fragment:fragment-ktx:1.3.0-alpha03'
 
 
-    //Shared Preferences
-    implementation "androidx.preference:preference-ktx:1.1.0"
-    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
 
-    //Aar files
- //   implementation files('libs/utilslibrary-release.aar')
 
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':utilslibrary-release')
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
 
+    //Coroutine Testing ......
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.4'
+
+    // Testing
+
+    testImplementation "org.mockito:mockito-core:3.3.3"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
+
+
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$roomVersion"
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$roomVersion"
+
+    kapt "androidx.room:room-compiler:$roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+
+
+// Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Dynamic Feature Module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 }

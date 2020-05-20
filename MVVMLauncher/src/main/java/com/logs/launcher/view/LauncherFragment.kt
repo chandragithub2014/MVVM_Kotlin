@@ -92,7 +92,7 @@ class LauncherFragment : Fragment(), LifecycleOwner,AdapterClickListener {
                 "SubComponentInjection" -> context?.openActivity(Class.forName("com.dagger.practice.CricketActivity"))
                 "BottomSheetSamples" -> context?.openActivity(Class.forName("com.bottomsheet.BottomSheetActivity"))
                 "KotlinPractice"-> context?.openActivity(Class.forName("com.kotlinpractice.KotlinPracticeActivity"))
-
+                "MVVM CleanArchitecture"-> context?.openActivity(Class.forName("com.mvvm.cleanarchitecture.presentation.CleanArchitectureActivity"))
             }
         }catch (e:Exception){
             e.printStackTrace()

@@ -16,6 +16,8 @@
             <option value="$PROJECT_DIR$/Common" />
             <option value="$PROJECT_DIR$/DaggerPractice" />
             <option value="$PROJECT_DIR$/KotlinPractice" />
+            <option value="$PROJECT_DIR$/MVVMCleanArchitecture" />
+            <option value="$PROJECT_DIR$/MVVMCore" />
             <option value="$PROJECT_DIR$/MVVMDataBinding" />
             <option value="$PROJECT_DIR$/MVVMLauncher" />
             <option value="$PROJECT_DIR$/MVVMLogin" />
