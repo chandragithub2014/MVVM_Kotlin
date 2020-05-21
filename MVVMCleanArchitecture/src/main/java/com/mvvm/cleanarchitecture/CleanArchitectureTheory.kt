@@ -127,4 +127,21 @@ Unit Testing functionality: Allows mocking of data to unit test
 DataBase access on BG Thread
 
 
+
+
+ */
+
+
+
+/*
+ Approach For Clean Architecture:
+
+ Data : It can be Pojo Object or Data Class
+
+ UseCases: Represent each functionality in the app . There should be separate classes for Each Functionality
+           Ex: Add a Record, Delete a Record, Fetch Record.
+               For each functionality there should be separate class.
+
+
+
  */

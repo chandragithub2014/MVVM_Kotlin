@@ -9,4 +9,5 @@ data class UseCases(
     val removePost: RemovePost,
     val getPostCount: GetPostCount
 
+
 )

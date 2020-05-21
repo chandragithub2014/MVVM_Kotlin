@@ -13,10 +13,13 @@ class NamedInjectionActivity : AppCompatActivity() {
     /*
        @Inject
        lateinit var movie: Movie*/
-     @Inject @field:Named("type")
-     lateinit var  type : String
-       @Inject @field:Named("actor")
-       lateinit var actor : String
+    @Inject
+    @field:Named("type")
+    lateinit var type: String
+
+    @Inject
+    @field:Named("actor")
+    lateinit var actor: String
 
     @Inject
     lateinit var movieDetails: MovieDetails
@@ -28,10 +31,11 @@ class NamedInjectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_named_injection)
-       // DaggerMoviewComponent
-       var component=  DaggerMovieComponent.builder().movieModule(MovieModule("Action","Jaq")).build()
+        // DaggerMoviewComponent
+        var component =
+            DaggerMovieComponent.builder().movieModule(MovieModule("Action", "Jaq")).build()
         component.inject(this)
-       // movieDetails.displayMovieDetails()
+        // movieDetails.displayMovieDetails()
         movie.displayMovie()
 
     }
