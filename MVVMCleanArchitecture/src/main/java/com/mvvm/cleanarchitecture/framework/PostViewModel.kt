@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.mvvm.cleanarchitecture.framework.di.ApplicationModule
+import com.mvvm.cleanarchitecture.framework.di.DaggerViewModelComponent
 import com.mvvmcore.data.PostModel
 import com.mvvmcore.repository.PostDataRepository
 import com.mvvmcore.usecases.AddPost
@@ -13,18 +15,31 @@ import com.mvvmcore.usecases.RemovePost
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     private  val coroutineScope = CoroutineScope(Dispatchers.IO)
-    val repository = PostDataRepository(RoomPostDataSource(application))
     val currentPost = MutableLiveData<PostModel?>()
+   /* val repository = PostDataRepository(RoomPostDataSource(application))
+
     private val useCases = UseCases(
         AddPost(repository),
         GetPost(repository),
         GetPosts(repository),
         RemovePost(repository)
-    )
+    )*/
+
+    @Inject
+    lateinit var useCases: UseCases
+
+    init {
+        DaggerViewModelComponent.builder()
+            .applicationModule(ApplicationModule(getApplication()))
+            .build()
+            .inject(this)
+    }
+
 
     private val saved = MutableLiveData<Boolean>()
 

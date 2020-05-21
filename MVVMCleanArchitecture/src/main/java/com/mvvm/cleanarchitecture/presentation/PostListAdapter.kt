@@ -33,12 +33,14 @@ class PostListAdapter(var posts: ArrayList<PostModel>, val listClickListener: Li
         private val title = view.title
         private val content = view.content
         private val  updatedTime = view.date
+        private  val postCount = view.postcount
         fun bind(postModel: PostModel){
             title.text = postModel.title
             content.text = postModel.body
             val sdf = SimpleDateFormat("MMM dd , HH:mm:ss")
             val resultDate = Date(postModel.updateTime)
             updatedTime.text = "Last Updated ${sdf.format(resultDate)}"
+            postCount.text = "Post Count : ${postModel.postCount}"
             layout.setOnClickListener {
                     listClickListener.onClick(postModel.id)
             }
