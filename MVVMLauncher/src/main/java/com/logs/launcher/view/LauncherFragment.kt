@@ -93,6 +93,7 @@ class LauncherFragment : Fragment(), LifecycleOwner,AdapterClickListener {
                 "BottomSheetSamples" -> context?.openActivity(Class.forName("com.bottomsheet.BottomSheetActivity"))
                 "KotlinPractice"-> context?.openActivity(Class.forName("com.kotlinpractice.KotlinPracticeActivity"))
                 "MVVM CleanArchitecture"-> context?.openActivity(Class.forName("com.mvvm.cleanarchitecture.presentation.CleanArchitectureActivity"))
+                "MVVM RetrofitCoroutines"-> context?.openActivity(Class.forName("com.mvvmcoroutine.retrofit.login.view.RetrofitLoginActivity"))
             }
         }catch (e:Exception){
             e.printStackTrace()

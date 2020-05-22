@@ -1,3 +1,4 @@
+include ':MVVMCoroutineRetrofit'
 include ':utilslibrary-release'
 include ':MVVMCore'
 include ':MVVMCleanArchitecture'

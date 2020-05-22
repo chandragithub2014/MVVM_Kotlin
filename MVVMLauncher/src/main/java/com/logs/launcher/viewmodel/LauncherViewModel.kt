@@ -22,6 +22,7 @@ class LauncherViewModel : ViewModel(),LifecycleObserver{
         launcherList.add("MVVM Login")
         launcherList.add("MVVM Room")
         launcherList.add("MVVM Network")
+        launcherList.add("MVVM RetrofitCoroutines")
         launcherList.add("MVVM DataBinding")
         launcherList.add("MVVM DataBindingList")
         launcherList.add("MVVM Navigation")

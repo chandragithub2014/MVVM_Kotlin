@@ -15,6 +15,7 @@
       <module name="MVVM_Kotlin.KotlinPractice" target="1.8" />
       <module name="MVVM_Kotlin.MVVMCleanArchitecture" target="1.8" />
       <module name="MVVM_Kotlin.MVVMCore" target="1.7" />
+      <module name="MVVM_Kotlin.MVVMCoroutineRetrofit" target="1.8" />
       <module name="MVVM_Kotlin.MVVMDataBinding" target="1.8" />
       <module name="MVVM_Kotlin.MVVMLauncher" target="1.8" />
       <module name="MVVM_Kotlin.MVVMLogin" target="1.8" />
