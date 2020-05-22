@@ -1,4 +1,4 @@
-package com.mvvmcoroutine.retrofit.login.view
+package com.mvvmcoroutine.retrofit.userlist.view
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -9,14 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.mvvm.appnavigator.hideKeyboard
-import com.mvvm.appnavigator.openActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvmcoroutine.retrofit.R
-import com.mvvmcoroutine.retrofit.login.model.LoginModel
 import com.mvvmcoroutine.retrofit.login.viewmodel.LoginViewModel
 import com.mvvmcoroutine.retrofit.login.viewmodel.LoginViewModelFactory
-import kotlinx.android.synthetic.main.fragment_retrofit_login.*
-import kotlinx.android.synthetic.main.fragment_retrofit_login.view.*
+import com.mvvmcoroutine.retrofit.userlist.viewmodel.UserListViewModel
+import com.mvvmcoroutine.retrofit.userlist.viewmodel.UserListViewModelFactory
+import kotlinx.android.synthetic.main.fragment_user_list.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,15 +24,16 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [RetrofitLoginFragment.newInstance] factory method to
+ * Use the [UserListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class RetrofitLoginFragment : Fragment() {
+class UserListFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var loginView : View? = null
-    lateinit var viewModel : LoginViewModel
+    private var userListView : View? = null
+    lateinit var viewModel : UserListViewModel
+    private var userListAdapter : UserListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,60 +48,60 @@ class RetrofitLoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        loginView =  inflater.inflate(R.layout.fragment_retrofit_login, container, false)
-        return loginView
+        userListView =  inflater.inflate(R.layout.fragment_user_list, container, false)
+        return  userListView
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initViewModel()
-        retrologin_email.setText("eve.holt@reqres.in")
-        retrologin_password.setText("cityslicka")
-
-        retro_login_btn.setOnClickListener {
-            retro_login_btn.hideKeyboard()
-            login_progress.visibility = View.VISIBLE
-            viewModel.validateLogin(LoginModel(retrologin_email.text.toString(),retrologin_password.text.toString()))
-        }
-
+        initAdapter()
         observeViewModel()
+
     }
 
 
     private fun initViewModel(){
-        var loginViewModelFactory = LoginViewModelFactory()
-        viewModel = ViewModelProviders.of(this, loginViewModelFactory).get(LoginViewModel::class.java)
+        var userListViewModelFactory = UserListViewModelFactory()
+        viewModel = ViewModelProviders.of(this, userListViewModelFactory).get(UserListViewModel::class.java)
     }
 
+    private fun initAdapter(){
+        userListAdapter =  UserListAdapter(arrayListOf(),this@UserListFragment.requireActivity())
+        userListRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = userListAdapter
+        }
+    }
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchUserListInfo(2)
+    }
 
     private fun observeViewModel(){
-        viewModel.fetchTokenStatus().observe(viewLifecycleOwner, Observer {
-           it?.let {
-               println("ResponseToken is ${it.token}")
-               context?.openActivity(Class.forName("com.mvvmcoroutine.retrofit.userlist.view.UserListActivity"))
-           }
+        viewModel.fetchUsersLiveData().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                userListAdapter?.refreshAdapter(it)
+            }
         })
 
         viewModel.fetchLoadStatus().observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if(it){
-                    login_progress.visibility = View.VISIBLE
-                }else{
-                    login_progress.visibility = View.GONE
-                }
+            if(!it){
+                println(it)
+                loading_progress.visibility  = View.GONE
             }
         })
 
         viewModel.fetchError().observe(viewLifecycleOwner, Observer {
             it?.let {
                 if(!TextUtils.isEmpty(it)){
-                    Toast.makeText(context,"$it",Toast.LENGTH_LONG).show()
+                    Toast.makeText(context,"$it", Toast.LENGTH_LONG).show()
                 }
 
             }
         })
     }
+
 
 }

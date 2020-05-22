@@ -3,7 +3,8 @@
     package="com.mvvmcoroutine.retrofit">
 
     <application>
-        <activity android:name=".login.view.RetrofitLoginActivity"></activity>
+        <activity android:name=".userlist.view.UserListActivity"></activity>
+        <activity android:name=".login.view.RetrofitLoginActivity" />
     </application>
 
 </manifest>

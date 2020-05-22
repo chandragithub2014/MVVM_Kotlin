@@ -46,7 +46,7 @@ class NetworkModule {
         return  httpClient.build();
 
     }
-
+//https://blog.mindorks.com/okhttp-interceptor-making-the-most-of-it
     class MyInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
             val original = chain.request()
