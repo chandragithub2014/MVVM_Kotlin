@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:text="lindsay.ferguson@reqres.in"
+        android:text=""
         android:textColor="#2A0C5E"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
