@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mvvmcoroutine.retrofit.R
+import com.mvvmcoroutine.retrofit.userlist.ItemClickListener
 import com.mvvmcoroutine.retrofit.userlist.model.Data
 import com.mvvmcoroutine.retrofit.userlist.model.User
 import kotlinx.android.synthetic.main.item_user_list.view.*
 
 
-class UserListAdapter(var users: ArrayList<Data>,var context: Context) : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
+class UserListAdapter(var users: ArrayList<Data>,var context: Context,var itemClickListener: ItemClickListener) : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder  =
     UserViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_user_list,parent,false))
@@ -38,6 +39,9 @@ class UserListAdapter(var users: ArrayList<Data>,var context: Context) : Recycle
             lastName.text = userModel.last_name
             email.text = userModel.email
             Glide.with(context).load(userModel.avatar).placeholder(R.drawable.ic_sync).into(image)
+            layout.setOnClickListener {
+                itemClickListener.setClickedInfo(userModel)
+            }
 
 
         }

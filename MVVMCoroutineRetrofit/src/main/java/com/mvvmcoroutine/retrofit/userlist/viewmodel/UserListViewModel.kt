@@ -16,6 +16,7 @@ class UserListViewModel(private val dispatcher: CoroutineDispatcher,
     var loading : MutableLiveData<Boolean> = MutableLiveData()
     private val errorOnAPI = MutableLiveData<String>()
     var userListMutableLiveData  = MutableLiveData<List<Data>>()
+    var selectedUserMutableLiveData = MutableLiveData<Data>()
 
 
     fun fetchUserListInfo(page : Int) {
@@ -37,6 +38,28 @@ class UserListViewModel(private val dispatcher: CoroutineDispatcher,
 
         }
     }
+
+
+    fun fetchUserDetailInfo(id : Int ) {
+
+        viewModelScope.launch(dispatcher) {
+
+            try{
+                val response = apiService.fetchSelectedUsers(id)
+                if(response.isSuccessful){
+                    selectedUserMutableLiveData.postValue(response.body()?.data)
+                    loading.postValue(false)
+                }else{
+                    loading.postValue(false)
+                    errorOnAPI.postValue("Something went wrong::${response.message()}")
+                }
+            }catch (e : Exception){
+                loading.postValue(false)
+                errorOnAPI.postValue("Something went wrong::${e.localizedMessage}")
+            }
+        }
+    }
+
 
 
     fun fetchError(): LiveData<String> = errorOnAPI
