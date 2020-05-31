@@ -23,6 +23,7 @@
       <module name="MVVM_Kotlin.MVVMRoom" target="1.8" />
       <module name="MVVM_Kotlin.MVVMRxRetrofit" target="1.8" />
       <module name="MVVM_Kotlin.RoomRepository" target="1.8" />
+      <module name="MVVM_Kotlin.RxJavaPractice" target="1.8" />
       <module name="MVVMCleanArchitecture" target="1.8" />
       <module name="MVVMCore" target="1.7" />
       <module name="MVVMDataBinding" target="1.8" />

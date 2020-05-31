@@ -36,6 +36,7 @@ class LauncherViewModel : ViewModel(),LifecycleObserver{
         launcherList.add("SubComponentInjection")
         launcherList.add("BottomSheetSamples")
         launcherList.add("KotlinPractice")
+        launcherList.add("RxJavaPractice")
 
     }
 

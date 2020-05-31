@@ -94,6 +94,7 @@ class LauncherFragment : Fragment(), LifecycleOwner,AdapterClickListener {
                 "KotlinPractice"-> context?.openActivity(Class.forName("com.kotlinpractice.KotlinPracticeActivity"))
                 "MVVM CleanArchitecture"-> context?.openActivity(Class.forName("com.mvvm.cleanarchitecture.presentation.CleanArchitectureActivity"))
                 "MVVM RetrofitCoroutines"-> context?.openActivity(Class.forName("com.mvvmcoroutine.retrofit.login.view.RetrofitLoginActivity"))
+                "RxJavaPractice"->context?.openActivity(Class.forName("com.rxjava.practice.RxJavaPracticeActivity"))
             }
         }catch (e:Exception){
             e.printStackTrace()
